@@ -16,7 +16,7 @@ MongoClient.connect("mongodb://localhost:27017/datadb", (err, client) => {
     .toArray((err, result) => {
       if (err) throw err;
 
-      console.log(result);
+      // console.log(result);
     });
 });
 
