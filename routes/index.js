@@ -1,9 +1,25 @@
-var express = require('express');
+var express = require("express");
+const { Db } = require("mongodb");
 var router = express.Router();
+var moment = require("moment"); // require
+moment().format();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+module.exports = function (db) {
+  /* GET home page. */
 
-module.exports = router;
+  router.get("/", function (req, res, next) {
+    console.log(db);
+
+    db.collection("users")
+      .find()
+      .toArray()
+      .then((results) => {
+        console.log(results);
+        res.render("list", { users: results });
+      })
+      .catch((error) => console.error(error));
+    // ...
+  });
+
+  return router;
+};
