@@ -8,7 +8,6 @@ module.exports = function (db) {
   /* GET home page. */
 
   router.get("/", function (req, res, next) {
-    console.log(db);
 
     db.collection("users")
       .find()
