@@ -4,12 +4,26 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-const MongoClient = require("mongodb").MongoClient;
+const { MongoClient } = require("mongodb");
+// or as an es module:
+// import { MongoClient } from 'mongodb'
 
-MongoClient.connect("mongodb://localhost:27017/datadb", (err, client) => {
-  if (err) throw err;
+// Connection URL
+const url = "mongodb://localhost:27017";
+const client = new MongoClient(url);
 
-  const db = client.db("datadb");
+// Database Name
+const dbName = 'datadb';
+
+async function main() {
+  // Use connect method to connect to the server
+  await client.connect();
+  console.log("Connected successfully to server");
+
+  const db = client.db(dbName);
+  
+
+  // the following code examples can be pasted here...
 
   var usersRouter = require("./routes/users");
   var indexRouter = require("./routes/index")(db);
@@ -124,4 +138,7 @@ MongoClient.connect("mongodb://localhost:27017/datadb", (err, client) => {
     var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
     debug("Listening on " + bind);
   }
-});
+}
+
+main().then(console.log).catch(console.error);
+// .finally(() => client.close());

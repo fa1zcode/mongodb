@@ -7,6 +7,12 @@
     <title>Latihan MongoDB</title>
 </head>
 <body>
-    <%= users %>
+  <% data.forEach((item, index) => { %>
+    <%= item.stringdata %>
+    <%= item.integerdata %>
+    <%= item.floatdata %>
+    <%= item.datedata %>
+    <%= item.booleandata %>
+    <% }) %>
 </body>
 </html>

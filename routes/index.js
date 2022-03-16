@@ -4,20 +4,16 @@ var router = express.Router();
 var moment = require("moment"); // require
 moment().format();
 
+
+
 module.exports = function (db) {
   /* GET home page. */
+  const collection = db.collection("data");
 
-  router.get("/", function (req, res, next) {
-
-    db.collection("users")
-      .find()
-      .toArray()
-      .then((results) => {
-        console.log(results);
-        res.render("list", { users: results });
-      })
-      .catch((error) => console.error(error));
-    // ...
+  router.get("/",async function (req, res, next) {
+    
+    const findResult = await collection.find({}).toArray();
+    res.render('list', {data : findResult})
   });
 
   return router;
